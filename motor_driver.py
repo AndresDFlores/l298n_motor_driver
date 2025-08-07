@@ -27,18 +27,18 @@ class MotorDriver():
 		
 		# define pins, initialize motors
 		self.motorA = DCMotor(
-			in1=23,
-			in2=24,
+			in1=24,
+			in2=23,
 			en=25
 		)
 
 		self.motorB = DCMotor(
-			in1=17,
-			in2=27,
+			in1=27,
+			in2=17,
 			en=22
 		)
 
-		self.motor_effort=100
+		self.motor_effort=75
 		
 		
 	def drive(self):
@@ -53,48 +53,41 @@ class MotorDriver():
 
 					self.motorA.set_motor_effort(effort=self.motor_effort)
 					self.motorA.set_motor_direction(direction=True)
-					self.motorA.drive_motor()
 
 					self.motorB.set_motor_effort(effort=self.motor_effort)
 					self.motorB.set_motor_direction(direction=True)
-					self.motorB.drive_motor()
-					
-					
-				elif pressed_key == 'down':
+
+
+				if pressed_key == 'down':
 					print('REVERSE')
 
 					self.motorA.set_motor_effort(effort=self.motor_effort)
 					self.motorA.set_motor_direction(direction=False)
-					self.motorA.drive_motor()
 
 					self.motorB.set_motor_effort(effort=self.motor_effort)
 					self.motorB.set_motor_direction(direction=False)
-					self.motorB.drive_motor()
-					
-					
-				elif pressed_key == 'left':
-					print('LEFT')
 
-					self.motorA.set_motor_effort(effort=self.motor_effort)
-					self.motorA.set_motor_direction(direction=False)
-					self.motorA.drive_motor()
 
-					self.motorB.set_motor_effort(effort=self.motor_effort)
-					self.motorB.set_motor_direction(direction=True)
-					self.motorB.drive_motor()
-					
-					
-				elif pressed_key == 'right':
+				if pressed_key == 'right':
 					print('RIGHT')
 
 					self.motorA.set_motor_effort(effort=self.motor_effort)
 					self.motorA.set_motor_direction(direction=True)
-					self.motorA.drive_motor()
 
 					self.motorB.set_motor_effort(effort=self.motor_effort)
 					self.motorB.set_motor_direction(direction=False)
-					self.motorB.drive_motor()
-					
+
+
+				if pressed_key == 'left':
+					print('LEFT')
+
+					self.motorA.set_motor_effort(effort=self.motor_effort)
+					self.motorA.set_motor_direction(direction=False)
+
+					self.motorB.set_motor_effort(effort=self.motor_effort)
+					self.motorB.set_motor_direction(direction=True)
+
+
 					
 				elif pressed_key == 'space' or pressed_key == 'escape':
 					print('SESSION TERMINATED')
@@ -102,11 +95,11 @@ class MotorDriver():
 
 					self.motorA.set_motor_effort(effort=0)
 					self.motorA.set_motor_direction(direction=True)
-					self.motorA.stop_motor()
-
+					
 					self.motorB.set_motor_effort(effort=0)
 					self.motorB.set_motor_direction(direction=True)
-					self.motorB.stop_motor()
+					
+
 					
 				else:
 					print(f'{pressed_key}: NO DEFINED ACTION')
@@ -117,29 +110,26 @@ class MotorDriver():
 
 				self.motorA.set_motor_effort(effort=0)
 				self.motorA.set_motor_direction(direction=True)
-				self.motorA.stop_motor()
+
 
 				self.motorB.set_motor_effort(effort=0)
 				self.motorB.set_motor_direction(direction=True)
-				self.motorB.stop_motor()
-                
-				
-			if event.type == self.pg.QUIT:  # Exit condition
-				print('SESSION TERMINATED')           
-				self.running = False
 
-				self.motorA.set_motor_effort(effort=0)
-				self.motorA.set_motor_direction(direction=True)
-				self.motorA.stop_motor()
-
-				self.motorB.set_motor_effort(effort=0)
-				self.motorB.set_motor_direction(direction=True)
-				self.motorB.stop_motor()
-
-		
+                		
 			
 	def main(self):
+
+		#  run motor application
 		while self.running:
+
+			#  read arrow commands
 			self.drive()
 
-	
+			#  execute motor parameterization and run
+			self.motorA.drive_motor()
+			self.motorB.drive_motor()
+
+
+		#  clean up pins
+		self.motorA.stop_motor()
+		self.motorB.stop_motor()
