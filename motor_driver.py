@@ -27,14 +27,14 @@ class MotorDriver():
 		
 		# define pins, initialize motors
 		self.motorA = DCMotor(
-			in1=24,
-			in2=23,
+			in1=23,
+			in2=24,
 			en=25
 		)
 
 		self.motorB = DCMotor(
-			in1=27,
-			in2=17,
+			in1=17,
+			in2=27,
 			en=22
 		)
 
