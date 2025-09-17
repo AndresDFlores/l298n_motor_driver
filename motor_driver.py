@@ -72,20 +72,20 @@ class MotorDriver():
 					print('RIGHT')
 
 					self.motorA.set_motor_effort(effort=self.motor_effort)
-					self.motorA.set_motor_direction(direction=True)
+					self.motorA.set_motor_direction(direction=False)
 
 					self.motorB.set_motor_effort(effort=self.motor_effort)
-					self.motorB.set_motor_direction(direction=False)
+					self.motorB.set_motor_direction(direction=True)
 
 
 				if pressed_key == 'left':
 					print('LEFT')
 
 					self.motorA.set_motor_effort(effort=self.motor_effort)
-					self.motorA.set_motor_direction(direction=False)
+					self.motorA.set_motor_direction(direction=True)
 
 					self.motorB.set_motor_effort(effort=self.motor_effort)
-					self.motorB.set_motor_direction(direction=True)
+					self.motorB.set_motor_direction(direction=False)
 
 
 					
